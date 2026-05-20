@@ -47,6 +47,8 @@ export interface ChatState {
   queueCooldownUntil: number | null;
 
   rateLimitedUntil: number | null;
+
+  connectionNotice: string | null;
 }
 
 
@@ -116,6 +118,11 @@ export interface PartnerDisconnectedEvent {
   type: "partner_disconnected";
 }
 
+export interface TimeoutEvent {
+  type: "timeout";
+  message?: string;
+}
+
 export interface ErrorEvent {
   type: "error";
   message: string;
@@ -132,5 +139,6 @@ export type ServerEvent =
   | IncomingMessageEvent
   | IncomingTypingEvent
   | PartnerDisconnectedEvent
+  | TimeoutEvent
   | ErrorEvent
   | BannedEvent;

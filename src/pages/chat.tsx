@@ -69,6 +69,7 @@ export default function ChatPage() {
     isPartnerTyping,
     partnerLeft,
     rateLimitedUntil,
+    connectionNotice,
   } = useChatStore();
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const [rateLimited, setRateLimited] = useState(false);
@@ -126,6 +127,12 @@ export default function ChatPage() {
       </header>
 
       <ChatGuidelines />
+
+      {connectionNotice && !partnerLeft && (
+        <div className="relative z-10 border-b border-border/40 bg-muted/40 px-4 py-2 text-center text-xs text-muted-foreground">
+          {connectionNotice}
+        </div>
+      )}
 
       {matchedTags.length > 0 && (
         <div className="relative z-10 shrink-0 border-b border-border/40 bg-card/50 px-4 py-2.5 backdrop-blur-sm">

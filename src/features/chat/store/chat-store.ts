@@ -57,6 +57,8 @@ interface ChatStore extends ChatState {
   setQueueCooldownUntil: (until: number | null) => void;
 
   setRateLimitedUntil: (until: number | null) => void;
+
+  setConnectionNotice: (message: string | null) => void;
 }
 
 
@@ -144,6 +146,8 @@ export const useChatStore =
 
       rateLimitedUntil: null,
 
+      connectionNotice: null,
+
       transitionTo: (
         nextStatus
       ) => {
@@ -204,6 +208,7 @@ export const useChatStore =
           roomId,
           matchedTags,
           partnerLeft: false,
+          connectionNotice: null,
           status: "matched",
         }),
 
@@ -216,6 +221,7 @@ export const useChatStore =
           isPartnerTyping: false,
           partnerLeft: false,
           messages: [],
+          connectionNotice: null,
           status: "connected",
         }),
 
@@ -226,6 +232,7 @@ export const useChatStore =
           isPartnerTyping: false,
           partnerLeft: false,
           messages: [],
+          connectionNotice: null,
           status: "queueing",
         }),
 
@@ -233,6 +240,7 @@ export const useChatStore =
         set((state) => ({
           partnerLeft: true,
           isPartnerTyping: false,
+          connectionNotice: "Partner left the chat. Tap Skip to find someone new.",
         })),
 
       addMessage: (
@@ -305,6 +313,8 @@ export const useChatStore =
           queueCooldownUntil: null,
 
           rateLimitedUntil: null,
+
+          connectionNotice: null,
         }),
 
       setQueueCooldownUntil: (until) =>
@@ -312,5 +322,8 @@ export const useChatStore =
 
       setRateLimitedUntil: (until) =>
         set({ rateLimitedUntil: until }),
+
+      setConnectionNotice: (message) =>
+        set({ connectionNotice: message }),
     })
   );

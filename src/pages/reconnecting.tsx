@@ -3,6 +3,7 @@ import { useChatStore } from "~/features/chat/store/chat-store";
 
 export default function ReconnectingPage() {
   const reconnectAttempts = useChatStore((s) => s.reconnectAttempts);
+  const notice = useChatStore((s) => s.connectionNotice);
 
   return (
     <div className="min-h-screen flex items-center justify-center p-6">
@@ -10,7 +11,7 @@ export default function ReconnectingPage() {
         <CardHeader>
           <CardTitle>Reconnecting</CardTitle>
           <CardDescription>
-            Restoring your connection
+            {notice || "Restoring your connection"}
             {reconnectAttempts > 0 ? ` (attempt ${reconnectAttempts})` : ""}
           </CardDescription>
         </CardHeader>

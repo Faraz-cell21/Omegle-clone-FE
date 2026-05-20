@@ -36,6 +36,7 @@ export function useSocket() {
     resetEntireState,
     setQueueCooldownUntil,
     setRateLimitedUntil,
+    setConnectionNotice,
   } = useChatStore();
 
   const sendEvent = useCallback((event: ClientEvent) => {
@@ -146,11 +147,13 @@ export function useSocket() {
             handleSessionCreatedEvent(event);
             break;
           case "waiting":
+            setConnectionNotice("Looking for a partner...");
             if (useChatStore.getState().status !== "queueing") {
               transitionTo("queueing");
             }
             break;
           case "matched":
+            setConnectionNotice(null);
             handleMatchedEvent(event);
             break;
           case "message":
@@ -162,6 +165,10 @@ export function useSocket() {
             break;
           case "partner_disconnected":
             markPartnerLeft();
+            break;
+          case "timeout":
+            setConnectionNotice(event.message || "Connection timed out. Reconnecting...");
+            toast.error(event.message || "Connection timed out");
             break;
           case "banned":
             transitionTo("banned");
@@ -191,6 +198,9 @@ export function useSocket() {
       }
 
       transitionTo("reconnecting");
+      setConnectionNotice(
+        `Reconnecting... attempt ${useChatStore.getState().reconnectAttempts}`,
+      );
       reconnectTimeoutRef.current = window.setTimeout(() => {
         connect();
       }, RECONNECT_DELAY);
@@ -211,6 +221,7 @@ export function useSocket() {
     clearRoom,
     leaveRoomForRematch,
     markPartnerLeft,
+    setConnectionNotice,
     incrementReconnectAttempts,
     stopHeartbeat,
   ]);

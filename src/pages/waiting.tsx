@@ -12,7 +12,7 @@ import { useChatStore } from "~/features/chat/store/chat-store";
 import { Globe } from "lucide-react";
 
 export default function WaitingPage() {
-  const { selectedTags, matchMode } = useChatStore();
+  const { selectedTags, matchMode, connectionNotice } = useChatStore();
   const { endChat } = useSocketContext();
 
   const isGlobal = matchMode === "global";
@@ -23,7 +23,9 @@ export default function WaitingPage() {
         <CardHeader>
           <CardTitle>Finding someone...</CardTitle>
           <CardDescription>
-            {isGlobal
+            {connectionNotice
+              ? connectionNotice
+              : isGlobal
               ? "Looking for someone in global chat"
               : "Matching based on your tags"}
           </CardDescription>
