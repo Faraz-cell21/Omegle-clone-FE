@@ -20,13 +20,18 @@ export function MessageBubble({ message }: MessageBubbleProps) {
   const isMe = message.sender === "me";
 
   return (
-    <div className={cn("flex gap-2 max-w-[80%]", isMe ? "self-end flex-row-reverse" : "self-start")}>
+    <div
+      className={cn(
+        "flex max-w-[85%] sm:max-w-[75%]",
+        isMe ? "self-end" : "self-start",
+      )}
+    >
       <div
         className={cn(
-          "rounded-2xl px-4 py-2 text-sm",
+          "rounded-2xl px-4 py-2.5 text-sm leading-relaxed shadow-sm",
           isMe
-            ? "bg-primary text-primary-foreground rounded-tr-sm"
-            : "bg-muted text-foreground rounded-tl-sm"
+            ? "rounded-br-md bg-primary text-primary-foreground"
+            : "rounded-bl-md border border-border/50 bg-card text-foreground",
         )}
       >
         <p className="whitespace-pre-wrap break-words">{message.message}</p>

@@ -233,6 +233,28 @@ export function useSocket() {
     socketRef.current?.close();
   }, [clearRoom]);
 
+  const exitToHome = useCallback(() => {
+    const { roomId, status } = useChatStore.getState();
+    const needsServerLeave =
+      roomId !== null || status === "queueing" || status === "matched";
+
+    clearRoom();
+
+    if (!needsServerLeave || !socketRef.current) {
+      return;
+    }
+
+    stopHeartbeat();
+    intentionalCloseRef.current = true;
+    socketRef.current.close();
+    socketRef.current = null;
+
+    window.setTimeout(() => {
+      intentionalCloseRef.current = false;
+      connect();
+    }, 150);
+  }, [clearRoom, connect, stopHeartbeat]);
+
   useEffect(() => {
     connect();
     return () => {
@@ -246,6 +268,7 @@ export function useSocket() {
     connect,
     disconnect,
     endChat,
+    exitToHome,
     startNewChat,
   };
 }
