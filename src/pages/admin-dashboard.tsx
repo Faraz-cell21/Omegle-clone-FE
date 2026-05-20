@@ -1,10 +1,11 @@
-import { useEffect, useState, type ComponentType, type FormEvent } from "react";
+import { useCallback, useEffect, useState, type ComponentType, type FormEvent } from "react";
 import {
   Activity,
   Ban,
   Clock,
   Globe,
   ListOrdered,
+  Mail,
   RefreshCw,
   ShieldBan,
   Users,
@@ -18,11 +19,14 @@ import { Input } from "~/components/ui/input";
 import { Label } from "~/components/ui/label";
 import { ScrollArea } from "~/components/ui/scroll-area";
 import { ADMIN_LOGIN_PATH } from "~/config/env";
+import { getAdminEmail } from "~/features/admin/lib/admin-auth";
 import {
   adminLogout,
   createSoftBan,
   fetchAdminDashboard,
 } from "~/features/admin/lib/admin-api";
+
+const AUTO_REFRESH_MS = 30_000;
 import type { AdminDashboardResponse } from "~/features/admin/models/admin.models";
 import { cn } from "~/lib/utils";
 
@@ -246,29 +250,50 @@ function DashboardSkeleton() {
 
 export default function AdminDashboardPage() {
   const navigate = useNavigate();
+  const [adminEmail] = useState(() => getAdminEmail());
   const [dashboard, setDashboard] = useState<AdminDashboardResponse | null>(null);
   const [loading, setLoading] = useState(true);
+  const [refreshing, setRefreshing] = useState(false);
   const [ipAddress, setIpAddress] = useState("");
   const [banning, setBanning] = useState(false);
 
-  const loadDashboard = async () => {
-    try {
-      setLoading(true);
-      const data = await fetchAdminDashboard();
-      setDashboard(data);
-    } catch (error) {
-      const message =
-        error instanceof Error ? error.message : "Failed to load dashboard";
-      toast.error(message);
-      navigate(ADMIN_LOGIN_PATH, { replace: true });
-    } finally {
-      setLoading(false);
-    }
-  };
+  const loadDashboard = useCallback(
+    async (options?: { silent?: boolean }) => {
+      const silent = options?.silent ?? false;
+      try {
+        if (silent) {
+          setRefreshing(true);
+        } else {
+          setLoading(true);
+        }
+        const data = await fetchAdminDashboard();
+        setDashboard(data);
+      } catch (error) {
+        const message =
+          error instanceof Error ? error.message : "Failed to load dashboard";
+        toast.error(message);
+        navigate(ADMIN_LOGIN_PATH, { replace: true });
+      } finally {
+        if (silent) {
+          setRefreshing(false);
+        } else {
+          setLoading(false);
+        }
+      }
+    },
+    [navigate],
+  );
 
   useEffect(() => {
     void loadDashboard();
-  }, []);
+  }, [loadDashboard]);
+
+  useEffect(() => {
+    const intervalId = window.setInterval(() => {
+      void loadDashboard({ silent: true });
+    }, AUTO_REFRESH_MS);
+    return () => clearInterval(intervalId);
+  }, [loadDashboard]);
 
   const handleLogout = async () => {
     try {
@@ -292,7 +317,7 @@ export default function AdminDashboardPage() {
       setBanning(true);
       await createSoftBan({ ip_address: ipAddress.trim() });
       toast.success("Soft ban applied");
-      await loadDashboard();
+      await loadDashboard({ silent: true });
       setIpAddress("");
     } catch (error) {
       toast.error(error instanceof Error ? error.message : "Soft ban failed");
@@ -310,15 +335,28 @@ export default function AdminDashboardPage() {
             <p className="text-sm text-muted-foreground">
               Live moderation and traffic overview
             </p>
+            {adminEmail && (
+              <p className="mt-1 flex items-center gap-1.5 text-sm text-foreground/80">
+                <Mail className="size-3.5 shrink-0 text-muted-foreground" aria-hidden />
+                Signed in as <span className="font-medium">{adminEmail}</span>
+              </p>
+            )}
+            <p className="mt-0.5 text-xs text-muted-foreground">
+              Auto-refreshes every 30 seconds
+              {refreshing && " · Updating…"}
+            </p>
           </div>
           <div className="flex items-center gap-2">
             <Button
               variant="outline"
-              onClick={() => void loadDashboard()}
-              disabled={loading}
+              onClick={() => void loadDashboard({ silent: !!dashboard })}
+              disabled={loading || refreshing}
               className="gap-2"
             >
-              <RefreshCw className={cn("size-4", loading && "animate-spin")} aria-hidden />
+              <RefreshCw
+                className={cn("size-4", (loading || refreshing) && "animate-spin")}
+                aria-hidden
+              />
               Refresh
             </Button>
             <Button variant="destructive" onClick={() => void handleLogout()}>

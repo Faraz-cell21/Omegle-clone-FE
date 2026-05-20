@@ -1,5 +1,5 @@
 import { ADMIN_LOGIN_API_URL, API_PREFIX } from "~/config/env";
-import { clearAdminToken, getAdminToken, setAdminToken } from "./admin-auth";
+import { clearAdminSession, getAdminToken, setAdminSession } from "./admin-auth";
 import type {
   AdminDashboardResponse,
   AdminLoginPayload,
@@ -80,7 +80,7 @@ export async function adminLogin(payload: AdminLoginPayload) {
     auth: false,
     body: JSON.stringify(payload),
   });
-  setAdminToken(pickAccessToken(data));
+  setAdminSession(pickAccessToken(data), data.user.email);
   return data;
 }
 
@@ -90,7 +90,7 @@ export async function adminLogout() {
       method: "POST",
     });
   } finally {
-    clearAdminToken();
+    clearAdminSession();
   }
 }
 
