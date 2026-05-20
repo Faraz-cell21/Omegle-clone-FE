@@ -4,6 +4,7 @@ import type { ClientEvent } from "../models/chat.models";
 
 interface SocketContextValue {
   sendEvent: (event: ClientEvent) => void;
+  reconnectNow: () => void;
   endChat: () => void;
   exitToHome: () => void;
   startNewChat: () => void;
@@ -12,10 +13,18 @@ interface SocketContextValue {
 const SocketContext = createContext<SocketContextValue | null>(null);
 
 export function SocketProvider({ children }: { children: ReactNode }) {
-  const { sendEvent, endChat, exitToHome, startNewChat } = useSocket();
+  const { sendEvent, connect, endChat, exitToHome, startNewChat } = useSocket();
 
   return (
-    <SocketContext.Provider value={{ sendEvent, endChat, exitToHome, startNewChat }}>
+    <SocketContext.Provider
+      value={{
+        sendEvent,
+        reconnectNow: connect,
+        endChat,
+        exitToHome,
+        startNewChat,
+      }}
+    >
       {children}
     </SocketContext.Provider>
   );

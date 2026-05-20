@@ -88,13 +88,14 @@ function ConnectButtons({
 }
 
 export default function HomePage() {
-  const { sendEvent } = useSocketContext();
+  const { sendEvent, reconnectNow } = useSocketContext();
   const {
     selectedTags,
     setSelectedTags,
     setMatchMode,
     status,
     queueCooldownUntil,
+    connectionNotice,
   } = useChatStore();
   const [cooldownRemaining, setCooldownRemaining] = useState(0);
 
@@ -150,6 +151,22 @@ export default function HomePage() {
             Chat one-on-one with strangers. Add your own tags to find people with
             shared interests, or jump into global chat to meet anyone.
           </p>
+          {connectionNotice && (
+            <div className="w-full max-w-2xl rounded-lg border border-warning/30 bg-warning/10 px-4 py-2 text-sm text-warning-foreground">
+              <p className="text-foreground/90">{connectionNotice}</p>
+              {status === "disconnected" && (
+                <Button
+                  type="button"
+                  variant="outline"
+                  size="sm"
+                  className="mt-2"
+                  onClick={reconnectNow}
+                >
+                  Take over in this tab
+                </Button>
+              )}
+            </div>
+          )}
         </header>
 
         <section
