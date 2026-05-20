@@ -173,22 +173,25 @@ export default function HomePage() {
           aria-label="How it works"
           className="mb-8 lg:mb-10 grid gap-3 sm:grid-cols-3 lg:gap-4"
         >
-          {STEPS.map(({ icon: Icon, title, text }) => (
-            <div
-              key={title}
-              className="flex items-start gap-3 rounded-xl border bg-card p-4 lg:p-5 sm:flex-col sm:items-center sm:text-center"
-            >
-              <div className="flex size-10 shrink-0 items-center justify-center rounded-lg bg-primary/10 text-primary sm:mx-auto lg:size-11">
-                <Icon className="size-5" aria-hidden />
+          {STEPS.map((step) => {
+            const StepIcon = step.icon;
+            return (
+              <div
+                key={step.title}
+                className="flex items-start gap-3 rounded-xl border bg-card p-4 lg:p-5 sm:flex-col sm:items-center sm:text-center"
+              >
+                <div className="flex size-10 shrink-0 items-center justify-center rounded-lg bg-primary/10 text-primary sm:mx-auto lg:size-11">
+                  <StepIcon className="size-5" aria-hidden />
+                </div>
+                <div>
+                  <p className="text-sm lg:text-base font-medium">{step.title}</p>
+                  <p className="text-xs lg:text-sm text-muted-foreground mt-1">
+                    {step.text}
+                  </p>
+                </div>
               </div>
-              <div>
-                <p className="text-sm lg:text-base font-medium">{title}</p>
-                <p className="text-xs lg:text-sm text-muted-foreground mt-1">
-                  {text}
-                </p>
-              </div>
-            </div>
-          ))}
+            );
+          })}
         </section>
 
         <div className="grid gap-6 lg:grid-cols-2 lg:gap-8 xl:gap-10 lg:items-start">
