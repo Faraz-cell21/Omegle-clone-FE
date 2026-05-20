@@ -73,17 +73,11 @@ export interface TypingEvent {
   type: "typing";
 }
 
-export interface ReportEvent {
-  type: "report";
-  reason: string;
-}
-
 export type ClientEvent =
   | HeartbeatEvent
   | JoinQueueEvent
   | MessageEvent
-  | TypingEvent
-  | ReportEvent;
+  | TypingEvent;
 
 
 
@@ -122,10 +116,6 @@ export interface PartnerDisconnectedEvent {
   type: "partner_disconnected";
 }
 
-export interface ReportSubmittedEvent {
-  type: "report_submitted";
-}
-
 export interface ErrorEvent {
   type: "error";
   message: string;
@@ -142,6 +132,5 @@ export type ServerEvent =
   | IncomingMessageEvent
   | IncomingTypingEvent
   | PartnerDisconnectedEvent
-  | ReportSubmittedEvent
   | ErrorEvent
   | BannedEvent;

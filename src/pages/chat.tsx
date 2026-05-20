@@ -6,10 +6,8 @@ import { Button } from "~/components/ui/button";
 import { ScrollArea } from "~/components/ui/scroll-area";
 import { MessageBubble } from "~/features/chat/components/message-bubble";
 import { MessageInput } from "~/features/chat/components/message-input";
-import { ReportDialog } from "~/features/chat/components/report-dialog";
 import { useSocketContext } from "~/features/chat/context/socket-context";
 import { useChatStore } from "~/features/chat/store/chat-store";
-import { useDisclosure } from "~/hooks/use-disclosure";
 
 export default function ChatPage() {
   const { sendEvent, startNewChat } = useSocketContext();
@@ -21,7 +19,6 @@ export default function ChatPage() {
     partnerLeft,
     rateLimitedUntil,
   } = useChatStore();
-  const report = useDisclosure();
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const [rateLimited, setRateLimited] = useState(false);
 
@@ -46,28 +43,21 @@ export default function ChatPage() {
     sendEvent({ type: "message", message: text });
   };
 
-  const handleReport = (reason: string) => {
-    sendEvent({ type: "report", reason });
-  };
-
   return (
     <div className="flex min-h-0 flex-1 flex-col bg-background">
-      <header className="grid shrink-0 grid-cols-[1fr_auto_1fr] items-center gap-2 border-b px-3 py-2 sm:px-4 sm:py-3">
-        <div className="flex justify-start">
-          <Button variant="outline" size="sm" onClick={startNewChat}>
-            New chat
-          </Button>
-        </div>
+      <header className="relative flex shrink-0 items-center justify-center border-b px-3 py-2 sm:px-4 sm:py-3">
+        <Button
+          variant="outline"
+          size="sm"
+          className="absolute left-3 sm:left-4"
+          onClick={startNewChat}
+        >
+          New chat
+        </Button>
 
-        <Link to="/" className="justify-self-center px-2">
+        <Link to="/" className="px-2">
           <VaitLogo variant="wordmark" size="sm" />
         </Link>
-
-        <div className="flex justify-end">
-          <Button variant="destructive" size="sm" onClick={report.open}>
-            Report
-          </Button>
-        </div>
       </header>
 
       {(roomId || matchedTags.length > 0) && (
@@ -120,12 +110,6 @@ export default function ChatPage() {
           disabled={rateLimited}
         />
       )}
-
-      <ReportDialog
-        open={report.isOpen}
-        onClose={report.close}
-        onSubmit={handleReport}
-      />
     </div>
   );
 }

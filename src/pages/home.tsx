@@ -26,7 +26,7 @@ const GUIDELINES = [
   "No harassment, hate speech, threats, sexual content, or illegal activity.",
   "Never ask for or share personal details (full name, address, phone, socials).",
   "You must be 18 or older to use this service.",
-  "Misbehavior can be reported. Repeat offenders may be temporarily banned.",
+  "Misbehavior may result in a temporary ban.",
 ] as const;
 
 const STEPS = [
@@ -43,7 +43,7 @@ const STEPS = [
   {
     icon: Shield,
     title: "Chat safely",
-    text: "Leave or report anytime.",
+    text: "Leave anytime and start a new chat.",
   },
 ] as const;
 

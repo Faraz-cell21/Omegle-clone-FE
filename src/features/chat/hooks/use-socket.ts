@@ -163,9 +163,6 @@ export function useSocket() {
           case "partner_disconnected":
             markPartnerLeft();
             break;
-          case "report_submitted":
-            toast.success("Report submitted");
-            break;
           case "banned":
             transitionTo("banned");
             toast.error("You are temporarily banned");
