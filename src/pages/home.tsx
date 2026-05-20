@@ -159,7 +159,7 @@ export default function HomePage() {
                   type="button"
                   variant="outline"
                   size="sm"
-                  className="mt-2"
+                  className="mt-2 bg-card text-foreground border-border hover:bg-primary hover:text-primary-foreground"
                   onClick={reconnectNow}
                 >
                   Take over in this tab
