@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import { Link, Outlet, useLocation, useNavigate } from "react-router-dom";
+import { BrandWatermarkBackground } from "~/components/brand/brand-watermark-background";
 import { VaitLogo } from "~/components/brand/vait-logo";
 import { useChatStore } from "../store/chat-store";
 import { routeForStatus } from "../lib/status-routes";
@@ -19,9 +20,11 @@ export default function ChatLayout() {
   }, [status, location.pathname, navigate]);
 
   return (
-    <div className="flex min-h-screen min-h-[100dvh] flex-col bg-background text-foreground">
+    <div className="relative flex min-h-screen min-h-[100dvh] flex-col bg-background text-foreground">
+      <BrandWatermarkBackground />
+
       {showTopBar && (
-        <header className="shrink-0 border-b bg-background">
+        <header className="relative z-10 shrink-0 border-b bg-background/90 backdrop-blur-sm">
           <div className="mx-auto flex h-14 max-w-6xl items-center justify-center px-4 sm:px-6 lg:px-8">
             <Link to="/" className="inline-flex shrink-0">
               <VaitLogo variant="wordmark" size="sm" />
@@ -29,7 +32,7 @@ export default function ChatLayout() {
           </div>
         </header>
       )}
-      <div className="flex min-h-0 flex-1 flex-col">
+      <div className="relative z-10 flex min-h-0 flex-1 flex-col">
         <Outlet />
       </div>
     </div>

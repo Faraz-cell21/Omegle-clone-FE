@@ -134,7 +134,7 @@ export default function HomePage() {
       : null;
 
   return (
-    <div className="min-h-screen min-h-[100dvh] flex flex-col bg-background">
+    <div className="relative min-h-screen min-h-[100dvh] flex flex-col">
       <div
         className="pointer-events-none fixed inset-0 hidden lg:block"
         aria-hidden
