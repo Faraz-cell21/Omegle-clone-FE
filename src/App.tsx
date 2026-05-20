@@ -10,6 +10,7 @@ import WaitingPage from "~/pages/waiting";
 import ChatPage from "~/pages/chat";
 import ReconnectingPage from "~/pages/reconnecting";
 import BannedPage from "~/pages/banned";
+import NotFoundPage from "~/pages/not-found";
 
 function ChatShell() {
   return (
@@ -32,6 +33,7 @@ export function App() {
           <Route path="/reconnecting" element={<ReconnectingPage />} />
           <Route path="/banned" element={<BannedPage />} />
         </Route>
+        <Route path="*" element={<NotFoundPage />} />
       </Routes>
       <Toaster richColors />
     </BrowserRouter>
