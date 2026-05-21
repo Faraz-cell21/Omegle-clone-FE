@@ -1,4 +1,4 @@
-import { API_PREFIX } from "~/config/env";
+import { API_PREFIX } from "~/config";
 
 export interface CaptchaVerifyResponse {
   validity: boolean;

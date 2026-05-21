@@ -1,4 +1,4 @@
-import { ADMIN_LOGIN_API_URL, API_PREFIX } from "~/config/env";
+import { ADMIN_LOGIN_API_URL, API_PREFIX } from "~/config";
 import { clearAdminSession, getAdminToken, setAdminSession } from "./admin-auth";
 import type {
   AdminDashboardResponse,

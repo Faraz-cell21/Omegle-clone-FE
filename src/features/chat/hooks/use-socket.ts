@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useRef } from "react";
 import { toast } from "sonner";
-import { WS_URL } from "~/config/env";
+import { WS_URL } from "~/config";
 import { useChatStore } from "../store/chat-store";
 import type {
   ClientEvent,

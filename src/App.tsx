@@ -2,7 +2,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Toaster } from "~/components/ui/sonner";
 import { SocketProvider } from "~/features/chat/context/socket-context";
 import ChatLayout from "~/features/chat/components/chat-layout";
-import { ADMIN_DASHBOARD_PATH, ADMIN_LOGIN_PATH } from "~/config/env";
+import { ADMIN_DASHBOARD_PATH, ADMIN_LOGIN_PATH } from "~/config";
 import AdminLoginPage from "~/pages/admin-login";
 import AdminDashboardPage from "~/pages/admin-dashboard";
 import HomePage from "~/pages/home";

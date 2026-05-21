@@ -18,7 +18,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "~/com
 import { Input } from "~/components/ui/input";
 import { Label } from "~/components/ui/label";
 import { ScrollArea } from "~/components/ui/scroll-area";
-import { ADMIN_LOGIN_PATH } from "~/config/env";
+import { ADMIN_LOGIN_PATH } from "~/config";
 import { getAdminEmail } from "~/features/admin/lib/admin-auth";
 import {
   adminLogout,

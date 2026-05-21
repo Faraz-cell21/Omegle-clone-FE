@@ -3,7 +3,7 @@ import { toast } from "sonner";
 import {
   TURNSTILE_ENABLED,
   TURNSTILE_SITE_KEY,
-} from "~/config/env";
+} from "~/config";
 import { verifyCaptcha } from "../lib/captcha-api";
 
 const CAPTCHA_STORAGE_KEY = "vait:captcha-verified-until";
