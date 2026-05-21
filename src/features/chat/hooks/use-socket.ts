@@ -171,6 +171,13 @@ export function useSocket() {
   const handleErrorEvent = useCallback(
     (event: ErrorEvent) => {
       toast.error(event.message);
+      if (event.message.toLowerCase().includes("security verification")) {
+        try {
+          sessionStorage.removeItem("vait:captcha-verified-until");
+        } catch {
+          // ignore
+        }
+      }
       if (event.message.includes("cooldown")) {
         setQueueCooldownUntil(Date.now() + QUEUE_COOLDOWN_MS);
       }

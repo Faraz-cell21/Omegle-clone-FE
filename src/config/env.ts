@@ -24,3 +24,9 @@ export const ADMIN_LOGIN_PATH =
 
 export const ADMIN_DASHBOARD_PATH =
   import.meta.env.VITE_ADMIN_DASHBOARD_PATH?.trim() || "/ops-gate-7f3x-console";
+
+export const TURNSTILE_SITE_KEY =
+  import.meta.env.VITE_TURNSTILE_SITE_KEY?.trim() || "";
+
+export const TURNSTILE_ENABLED =
+  import.meta.env.VITE_TURNSTILE_ENABLED !== "false" && !!TURNSTILE_SITE_KEY;

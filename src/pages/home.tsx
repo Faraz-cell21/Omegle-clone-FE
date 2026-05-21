@@ -1,4 +1,5 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
+import { toast } from "sonner";
 import {
   AlertTriangle,
   Globe,
@@ -19,6 +20,8 @@ import {
   CardHeader,
   CardTitle,
 } from "~/components/ui/card";
+import { TurnstileWidget } from "~/components/ui/turnstile-widget";
+import { useCaptchaVerification } from "~/features/captcha/hooks/use-captcha-verification";
 import { cn } from "~/lib/utils";
 
 const GUIDELINES = [
@@ -97,6 +100,14 @@ export default function HomePage() {
     queueCooldownUntil,
     connectionNotice,
   } = useChatStore();
+  const {
+    isCaptchaRequired,
+    isVerified: isCaptchaVerified,
+    verifying: captchaVerifying,
+    turnstileSiteKey,
+    verifyTurnstileToken,
+    clearVerification,
+  } = useCaptchaVerification();
   const [cooldownRemaining, setCooldownRemaining] = useState(0);
 
   useEffect(() => {
@@ -115,19 +126,44 @@ export default function HomePage() {
   }, [queueCooldownUntil]);
 
   const isConnecting = status === "connecting" || status === "idle";
-  const isReady = !isConnecting && status === "connected" && cooldownRemaining === 0;
+  const isReady =
+    !isConnecting &&
+    status === "connected" &&
+    cooldownRemaining === 0 &&
+    !captchaVerifying;
 
-  const canConnectGlobal = isReady;
-  const canConnectTags = isReady && selectedTags.length > 0;
+  const canConnectGlobal = isReady && isCaptchaVerified;
+  const canConnectTags = isReady && isCaptchaVerified && selectedTags.length > 0;
 
-  const joinQueue = (mode: MatchMode) => {
-    setMatchMode(mode);
-    const tags = mode === "global" ? [] : selectedTags;
-    sendEvent({ type: "join_queue", tags });
-  };
+  const joinQueue = useCallback(
+    (mode: MatchMode) => {
+      if (isCaptchaRequired && !isCaptchaVerified) {
+        toast.error("Complete security verification before connecting.");
+        return;
+      }
+      setMatchMode(mode);
+      const tags = mode === "global" ? [] : selectedTags;
+      sendEvent({ type: "join_queue", tags });
+    },
+    [
+      isCaptchaRequired,
+      isCaptchaVerified,
+      selectedTags,
+      sendEvent,
+      setMatchMode,
+    ],
+  );
 
   const startGlobal = () => joinQueue("global");
   const startWithTags = () => joinQueue("tags");
+
+  const handleTurnstileSuccess = async (token: string) => {
+    await verifyTurnstileToken(token);
+  };
+
+  const handleTurnstileExpire = () => {
+    clearVerification();
+  };
 
   const cooldownHint =
     cooldownRemaining > 0
@@ -234,6 +270,27 @@ export default function HomePage() {
                 onChange={setSelectedTags}
                 disabled={status !== "connected"}
               />
+
+              {isCaptchaRequired && (
+                <div className="flex flex-col items-center gap-2">
+                  <TurnstileWidget
+                    siteKey={turnstileSiteKey}
+                    onSuccess={handleTurnstileSuccess}
+                    onExpire={handleTurnstileExpire}
+                    className="flex justify-center"
+                  />
+                  {!isCaptchaVerified && !captchaVerifying && (
+                    <p className="text-xs text-center text-muted-foreground">
+                      Complete verification above to connect
+                    </p>
+                  )}
+                  {captchaVerifying && (
+                    <p className="text-xs text-center text-muted-foreground">
+                      Verifying…
+                    </p>
+                  )}
+                </div>
+              )}
 
               {cooldownHint && (
                 <p className="text-sm text-center text-warning">{cooldownHint}</p>
