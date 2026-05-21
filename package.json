@@ -6,7 +6,8 @@
   "scripts": {
     "seo:generate": "bun --env-file=.env scripts/generate-seo-files.ts",
     "dev": "vite",
-    "build": "bun run seo:generate && tsc -b && vite build",
+    "build": "bun run seo:generate && tsc -b && vite build && bun run prerender",
+    "prerender": "bun scripts/prerender.ts",
     "lint": "eslint .",
     "preview": "vite preview"
   },
@@ -38,6 +39,7 @@
     "eslint-plugin-react-hooks": "^7.1.1",
     "eslint-plugin-react-refresh": "^0.5.2",
     "globals": "^17.6.0",
+    "puppeteer": "^25.0.4",
     "typescript": "~6.0.2",
     "typescript-eslint": "^8.59.2",
     "vite": "^8.0.12"

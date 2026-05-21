@@ -20,8 +20,11 @@ import {
   CardHeader,
   CardTitle,
 } from "~/components/ui/card";
+import { HomeFaq } from "~/components/site/home-faq";
+import { SiteFooter } from "~/components/site/site-footer";
 import { TurnstileWidget } from "~/components/ui/turnstile-widget";
 import { useCaptchaVerification } from "~/features/captcha/hooks/use-captcha-verification";
+import { usePageMeta } from "~/hooks/use-page-meta";
 import { cn } from "~/lib/utils";
 
 const GUIDELINES = [
@@ -91,6 +94,11 @@ function ConnectButtons({
 }
 
 export default function HomePage() {
+  usePageMeta(
+    "Chatot — Anonymous Chat by Tags | Talk to Strangers Online",
+    "Free anonymous 1-on-1 chat. Add tags to match people with shared interests, or use global chat. 18+ only.",
+  );
+
   const { sendEvent, reconnectNow } = useSocketContext();
   const {
     selectedTags,
@@ -181,11 +189,14 @@ export default function HomePage() {
       </div>
 
       <main className="relative flex-1 w-full max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pt-6 pb-36 lg:pb-12 lg:pt-10">
-        <header className="mb-8 lg:mb-10 flex flex-col items-center text-center gap-6">
+        <header className="mb-8 lg:mb-10 flex flex-col items-center text-center gap-4 sm:gap-6">
           <ChatotLogo size="lg" />
+          <h1 className="text-2xl sm:text-3xl lg:text-4xl font-semibold tracking-tight max-w-2xl">
+            Anonymous chat with strangers online
+          </h1>
           <p className="text-base sm:text-lg lg:text-xl text-muted-foreground leading-relaxed max-w-2xl mx-auto">
-            Chat one-on-one with strangers. Add your own tags to find people with
-            shared interests, or jump into global chat to meet anyone.
+            Free tag-based random chat — match by shared interests or jump into
+            global chat to talk to anyone. No account required. 18+ only.
           </p>
           {connectionNotice && (
             <div className="w-full max-w-2xl rounded-lg border border-warning/30 bg-warning/10 px-4 py-2 text-sm text-warning-foreground">
@@ -307,7 +318,11 @@ export default function HomePage() {
             </CardContent>
           </Card>
         </div>
+
+        <HomeFaq />
       </main>
+
+      <SiteFooter />
 
       <div
         className={cn(

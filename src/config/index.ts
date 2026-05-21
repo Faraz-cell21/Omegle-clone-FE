@@ -17,7 +17,7 @@ export const API_PREFIX =
 
 export const ADMIN_LOGIN_API_URL =
   trim(import.meta.env.VITE_ADMIN_LOGIN_API_URL) ||
-  (isDev ? "/admin/login/" : `${API_BASE_URL}/admin/login/`);
+  `${API_PREFIX}/auth/login/`;
 
 export const ADMIN_LOGIN_PATH =
   trim(import.meta.env.VITE_ADMIN_LOGIN_PATH) || "/ops-gate-7f3x-enter";

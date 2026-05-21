@@ -16,7 +16,7 @@
     <!-- Open Graph -->
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="Chatot" />
-    <meta property="og:title" content="Chatot -Anonymous tag-based chat" />
+    <meta property="og:title" content="Chatot — Anonymous tag-based chat" />
     <meta
       property="og:description"
       content="Free anonymous 1-on-1 chat. Add tags to match people with shared interests, or use global chat. 18+ only."
@@ -29,7 +29,7 @@
 
     <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Chatot - Anonymous tag-based chat" />
+    <meta name="twitter:title" content="Chatot — Anonymous tag-based chat" />
     <meta
       name="twitter:description"
       content="Free anonymous 1-on-1 chat. Add tags to match people with shared interests, or use global chat. 18+ only."
@@ -42,6 +42,29 @@
       href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Montserrat:wght@700;800&family=Sora:wght@600;700&display=swap"
       rel="stylesheet"
     />
+
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "WebSite",
+            "@id": "%VITE_SITE_URL%/#website",
+            "url": "%VITE_SITE_URL%/",
+            "name": "Chatot",
+            "description": "Free anonymous 1-on-1 chat. Add tags to match people with shared interests, or use global chat. 18+ only.",
+            "inLanguage": "en-US",
+            "publisher": { "@id": "%VITE_SITE_URL%/#organization" }
+          },
+          {
+            "@type": "Organization",
+            "@id": "%VITE_SITE_URL%/#organization",
+            "name": "Chatot",
+            "url": "%VITE_SITE_URL%/"
+          }
+        ]
+      }
+    </script>
   </head>
   <body>
     <div id="root"></div>

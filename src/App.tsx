@@ -6,6 +6,8 @@ import { ADMIN_DASHBOARD_PATH, ADMIN_LOGIN_PATH } from "~/config";
 import AdminLoginPage from "~/pages/admin-login";
 import AdminDashboardPage from "~/pages/admin-dashboard";
 import HomePage from "~/pages/home";
+import PrivacyPage from "~/pages/privacy";
+import TermsPage from "~/pages/terms";
 import WaitingPage from "~/pages/waiting";
 import ChatPage from "~/pages/chat";
 import ReconnectingPage from "~/pages/reconnecting";
@@ -26,6 +28,10 @@ export function App() {
       <Routes>
         <Route path={ADMIN_LOGIN_PATH} element={<AdminLoginPage />} />
         <Route path={ADMIN_DASHBOARD_PATH} element={<AdminDashboardPage />} />
+        <Route path="/privacy" element={<PrivacyPage />} />
+        <Route path="/terms" element={<TermsPage />} />
+        <Route path="/admin" element={<NotFoundPage />} />
+        <Route path="/admin/*" element={<NotFoundPage />} />
         <Route element={<ChatShell />}>
           <Route path="/" element={<HomePage />} />
           <Route path="/waiting" element={<WaitingPage />} />
