@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { AlertTriangle, ChevronLeft, MessageCircle, Sparkles } from "lucide-react";
-import { VaitLogo } from "~/components/brand/vait-logo";
+import { ChatotLogo } from "~/components/brand/chatot-logo";
 import { Badge } from "~/components/ui/badge";
 import { Button } from "~/components/ui/button";
 import { ScrollArea } from "~/components/ui/scroll-area";
@@ -122,7 +122,7 @@ export default function ChatPage() {
             <ChevronLeft className="size-5" />
           </Button>
 
-          <VaitLogo variant="wordmark" size="sm" />
+          <ChatotLogo variant="wordmark" size="sm" />
         </div>
       </header>
 

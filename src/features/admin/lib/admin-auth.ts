@@ -1,5 +1,5 @@
-const ADMIN_TOKEN_KEY = "vait:admin:access_token";
-const ADMIN_EMAIL_KEY = "vait:admin:email";
+const ADMIN_TOKEN_KEY = "chatot:admin:access_token";
+const ADMIN_EMAIL_KEY = "chatot:admin:email";
 
 export function getAdminToken(): string | null {
   return sessionStorage.getItem(ADMIN_TOKEN_KEY);

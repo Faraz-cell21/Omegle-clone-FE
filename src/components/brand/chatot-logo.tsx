@@ -3,18 +3,18 @@ import { cn } from "~/lib/utils";
 const LIGHT_BLUE = "#40B3E4";
 const DARK_BLUE = "#0089D0";
 
-type VaitLogoVariant = "full" | "wordmark" | "icon";
-type VaitLogoSize = "sm" | "md" | "lg";
+type ChatotLogoVariant = "full" | "wordmark" | "icon";
+type ChatotLogoSize = "sm" | "md" | "lg";
 
-interface VaitLogoProps {
+interface ChatotLogoProps {
   className?: string;
-  variant?: VaitLogoVariant;
-  size?: VaitLogoSize;
+  variant?: ChatotLogoVariant;
+  size?: ChatotLogoSize;
 }
 
 const iconWidths = { sm: 56, md: 84, lg: 112 } as const;
 
-function VaitIcon({ width }: { width: number }) {
+function ChatotIcon({ width }: { width: number }) {
   const height = width * 0.75;
 
   return (
@@ -76,7 +76,7 @@ function VaitIcon({ width }: { width: number }) {
   );
 }
 
-function Wordmark({ size }: { size: VaitLogoSize }) {
+function Wordmark({ size }: { size: ChatotLogoSize }) {
   const word =
     size === "sm" ? "text-xl" : size === "md" ? "text-3xl" : "text-4xl sm:text-5xl";
   const slogan =
@@ -95,7 +95,7 @@ function Wordmark({ size }: { size: VaitLogoSize }) {
         )}
         style={{ fontFamily: "var(--font-logo)" }}
       >
-        Vait
+        Chatot
       </span>
       <span
         className={cn(slogan, "font-medium uppercase")}
@@ -107,18 +107,18 @@ function Wordmark({ size }: { size: VaitLogoSize }) {
   );
 }
 
-/** Vait brand logo — SVG speech bubbles, wordmark, and slogan */
-export function VaitLogo({
+/** Chatot brand logo — SVG speech bubbles, wordmark, and slogan */
+export function ChatotLogo({
   className,
   variant = "full",
   size = "md",
-}: VaitLogoProps) {
+}: ChatotLogoProps) {
   const iconWidth = iconWidths[size];
 
   if (variant === "icon") {
     return (
-      <div className={cn("inline-flex", className)} aria-label="Vait">
-        <VaitIcon width={iconWidth} />
+      <div className={cn("inline-flex", className)} aria-label="Chatot">
+        <ChatotIcon width={iconWidth} />
       </div>
     );
   }
@@ -127,7 +127,7 @@ export function VaitLogo({
     return (
       <div
         className={cn("inline-flex", className)}
-        aria-label="Vait — Find your vibe"
+        aria-label="Chatot — Find your vibe"
       >
         <Wordmark size={size} />
       </div>
@@ -140,9 +140,9 @@ export function VaitLogo({
         "inline-flex flex-col items-center gap-3 text-center",
         className,
       )}
-      aria-label="Vait — Find your vibe"
+      aria-label="Chatot — Find your vibe"
     >
-      <VaitIcon width={iconWidth} />
+      <ChatotIcon width={iconWidth} />
       <Wordmark size={size} />
     </div>
   );

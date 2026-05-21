@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { FileQuestion } from "lucide-react";
-import { VaitLogo } from "~/components/brand/vait-logo";
+import { ChatotLogo } from "~/components/brand/chatot-logo";
 import { Button } from "~/components/ui/button";
 import {
   Card,
@@ -15,7 +15,7 @@ export default function NotFoundPage() {
     <main className="min-h-screen min-h-[100dvh] flex items-center justify-center p-6">
       <Card className="w-full max-w-md text-center shadow-sm">
         <CardHeader className="space-y-4">
-          <VaitLogo variant="wordmark" size="sm" className="mx-auto" />
+          <ChatotLogo variant="wordmark" size="sm" className="mx-auto" />
           <div className="mx-auto flex size-14 items-center justify-center rounded-2xl bg-muted text-muted-foreground">
             <FileQuestion className="size-7" aria-hidden />
           </div>

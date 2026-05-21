@@ -14,13 +14,13 @@ const WATERMARK_TILE = encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/sv
       <circle cx="46" cy="36" r="2.5"/>
     </g>
   </g>
-  <text x="110" y="96" text-anchor="middle" font-family="Montserrat, sans-serif" font-weight="800" font-size="20" fill="#0089D0" opacity="0.07">VAIT</text>
+  <text x="110" y="96" text-anchor="middle" font-family="Montserrat, sans-serif" font-weight="800" font-size="20" fill="#0089D0" opacity="0.07">CHATOT</text>
   <text x="110" y="116" text-anchor="middle" font-family="Inter, sans-serif" font-size="7" fill="#0089D0" opacity="0.055" letter-spacing="0.45em">FIND YOUR VIBE</text>
 </svg>`);
 
 const WATERMARK_URL = `url("data:image/svg+xml,${WATERMARK_TILE}")`;
 
-/** Subtle repeating Vait logo + slogan wallpaper for page backgrounds */
+/** Subtle repeating Chatot logo + slogan wallpaper for page backgrounds */
 export function BrandWatermarkBackground() {
   return (
     <div className="pointer-events-none absolute inset-0 z-0 overflow-hidden" aria-hidden>

@@ -7,7 +7,7 @@ import {
   Shield,
   Tags,
 } from "lucide-react";
-import { VaitLogo } from "~/components/brand/vait-logo";
+import { ChatotLogo } from "~/components/brand/chatot-logo";
 import type { MatchMode } from "~/features/chat/models/chat.models";
 import { useChatStore } from "~/features/chat/store/chat-store";
 import { TagSelector } from "~/features/chat/components/tag-selector";
@@ -182,7 +182,7 @@ export default function HomePage() {
 
       <main className="relative flex-1 w-full max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pt-6 pb-36 lg:pb-12 lg:pt-10">
         <header className="mb-8 lg:mb-10 flex flex-col items-center text-center gap-6">
-          <VaitLogo size="lg" />
+          <ChatotLogo size="lg" />
           <p className="text-base sm:text-lg lg:text-xl text-muted-foreground leading-relaxed max-w-2xl mx-auto">
             Chat one-on-one with strangers. Add your own tags to find people with
             shared interests, or jump into global chat to meet anyone.

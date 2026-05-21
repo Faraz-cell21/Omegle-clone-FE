@@ -1,7 +1,7 @@
 import { useState, type FormEvent } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
-import { VaitLogo } from "~/components/brand/vait-logo";
+import { ChatotLogo } from "~/components/brand/chatot-logo";
 import { Button } from "~/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "~/components/ui/card";
 import { Input } from "~/components/ui/input";
@@ -38,7 +38,7 @@ export default function AdminLoginPage() {
     <main className="min-h-screen flex items-center justify-center p-4">
       <Card className="w-full max-w-md">
         <CardHeader className="space-y-4">
-          <VaitLogo variant="wordmark" size="sm" />
+          <ChatotLogo variant="wordmark" size="sm" />
           <CardTitle>Admin access</CardTitle>
         </CardHeader>
         <CardContent>

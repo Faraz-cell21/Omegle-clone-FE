@@ -6,7 +6,7 @@ import {
 } from "~/config";
 import { verifyCaptcha } from "../lib/captcha-api";
 
-const CAPTCHA_STORAGE_KEY = "vait:captcha-verified-until";
+const CAPTCHA_STORAGE_KEY = "chatot:captcha-verified-until";
 
 function readStoredExpiry() {
   try {

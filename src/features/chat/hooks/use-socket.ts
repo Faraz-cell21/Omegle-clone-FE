@@ -17,7 +17,7 @@ const MAX_RECONNECT_ATTEMPTS = 8;
 const QUEUE_COOLDOWN_MS = 3000;
 const RATE_LIMIT_MS = 1000;
 
-const TAB_LOCK_KEY = "vait:chat:active-tab";
+const TAB_LOCK_KEY = "chatot:chat:active-tab";
 const TAB_LOCK_TTL_MS = 20000;
 const TAB_LOCK_REFRESH_MS = 5000;
 
@@ -173,7 +173,7 @@ export function useSocket() {
       toast.error(event.message);
       if (event.message.toLowerCase().includes("security verification")) {
         try {
-          sessionStorage.removeItem("vait:captcha-verified-until");
+          sessionStorage.removeItem("chatot:captcha-verified-until");
         } catch {
           // ignore
         }
