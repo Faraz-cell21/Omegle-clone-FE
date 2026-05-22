@@ -1,16 +1,16 @@
 /**
  * Writes public/robots.txt and public/sitemap.xml from VITE_SITE_URL.
- * Run before build: bun run seo:generate
+ * Uses the same env files as Vite (.env + .env.production on production builds).
  */
 
 import { writeFileSync } from "node:fs";
 import { resolve } from "node:path";
 import { SITEMAP_ENTRIES } from "../seo.config";
+import { loadViteEnv } from "./load-vite-env";
 
-const siteUrl = (process.env.VITE_SITE_URL ?? "https://yourdomain.com").replace(
-  /\/$/,
-  "",
-);
+const mode = process.env.MODE ?? "development";
+const env = loadViteEnv(mode);
+const siteUrl = (env.VITE_SITE_URL ?? "http://localhost:3000").replace(/\/$/, "");
 
 const DISALLOW_PATHS = [
   "/admin",
